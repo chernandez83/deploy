@@ -1,0 +1,22 @@
+PID Process ID
+PPID Parent Process ID
+TTY Terminal asociada
+UID User ID
+
+Init Process (PID 1)
+
+ps (listado de procesos activos del usuario)
+ps -f (para obtener dealles como UID, PPID)
+ps -u (recursos consumidos)
+ps -e (procesos de todos los usuarios)
+
+top (monitoreo en tiempo real)
+
+nano main.py
+python3 main.py (ejecución en primer plano)
+nano & (ejecución en segundo plano con el "&" al final)
+ps (muestra nano ejecutandose en segundo plano)
+jobs (procesos activos)
+fg %1 (para traer a primer plano con el id retornado por jobs)
+kill -9 PID (para finalizar el proceso con el PID)
+kill -l (lista de señales)

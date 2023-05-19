@@ -1,0 +1,68 @@
+whoami
+pwd
+ls
+ls -a
+cd ..
+cd directorio/
+clear (ctrl + l)
+mkdir directorionuevo/
+echo "Hola" > echo.txt
+cat echo.txt
+touch touch.txt
+nano nano.txt
+head archivo.txt
+head -n 10 archivo.txt
+tail archivo.txt
+tail -n 5 archivo.txt
+wc (word count) (líneas palabras caracteres)
+wc nano.txt
+wc -m nano.txt (contar caracteres)
+wc -c nano.txt (contar bytes)
+wc -w nano.txt (contar palabras)
+wc -l nano.txt (contar lineas)
+ls -a (listar ocultos)
+ls -l (listar detalles)
+ls -la (listar detalles y ocultos)
+ls -lr (listar detalles y en orden inverso)
+ls -lt (listar detalles y por última modificación)
+ls -ltr (listar detalles y por última modificación a la inversa)
+ls -lX (listar detalles y por extensión)
+ls -lS (listar detalles y por tamaño en bytes)
+ls -lSr (listar detalles y por tamaño en bytes a la inversa)
+ls -lSh (listar detalles y por tamaño en kilobytes)
+man ls
+man mkdir
+man man (manual de man)
+mkdir xml
+mkdir txt
+mkdir json
+mv config.xml xml/
+mv file.txt txt/
+mv users.json json/
+mv *.txt txt/
+cp archivo.ori directorio/
+cp archivo.ori directorio/destino.fil
+rm archivo.txt
+rm -R directorio/
+rm -rf directorio/
+mv archivo.txt nuevonombre.txt
+ln -s archivo.txt linksimbolico.txt 
+ls -l (linksimbolico.txt -> archivo.txt)
+-rw-rw-r-- tipo (1) rwx (usuario) rwx (grupo) rwx (otros)
+chmod 777 archivo.txt (todos los permisos a todos)
+
+# script con permisos de ejecución y edición para todos los usuarios
+nano permisos.sh
+chmod 777 permisos.sh
+
+# permisos solo para el propietario
+chmod 700 permisos.sh
+
+# solo el propietario puede leerlo y modificarlo, no ejecutarlo
+chmod 600 permisos.sh
+
+# solo otros usuarios pueden ejectutarlo
+chmod 601 permisos.sh
+
+# solo se puede ejecutar por el propietario
+chmod 500 permisos.sh
