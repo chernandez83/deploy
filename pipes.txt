@@ -1,0 +1,3 @@
+tail frankenstein.txt | wc # obtener las últimas 10 líneasd el archivo y contar las palabras
+tail frankenstein.txt | grep -i he # obtener las últimas 10 líneasd el archivo y buscar he
+tail frankenstein.txt | grep -i he | wc # obtener las últimas 10 líneasd el archivo, buscar he y contar palabras

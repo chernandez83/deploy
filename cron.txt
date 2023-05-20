@@ -1,0 +1,44 @@
+5 4 3 2 1
+
+1 dia de la semana (0-6, domingo = 0 o 7)
+2 mes del año (1-12)
+3 dia del mes (1-31)
+4 hora del dia (0-23)
+5 minuto del dia (0-59)
+
+5 17 * * sun /path/file.sh
+5 minutos depues de las 5 los domingos
+
+15 21 1 * * /path/file.sh
+los días primero de cada mes a las 21:15 horas
+
+0 9 * * * /path/file.sh
+todos los días a las 9:00
+
+5 * * * *
+
+
+crontab -e # editar trabajos
+
+# se ejecuta cada minuto
+* * * * * echo "Hola desde crontab" >> /home/vagrant/pruebas/salida.txt
+
+crontab -l # muestra los trabajos programados
+
+# se ejecuta cada 5 minutos
+*/5 * * * * echo "Hola desde crontab cada 5 minutos" >> /home/vagrant/pruebas/salida.txt
+
+nano main.py
+
+from datetime import datetime
+
+now = datetime.utcnow()
+current_date = now.strftime('%Y-%m-%d %H:%M:%S')
+
+with open('dates.txt', 'a') as file:
+    file.write(current_date +  '\n')
+	
+# se ejecuta cada 5 minutos, manda la salida al home del usuario
+# pasar ruta completa dentro del script si se desea otra ruta
+*/5 * * * * python3 /home/vagrant/pruebas/main.py
+

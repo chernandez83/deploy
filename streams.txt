@@ -1,0 +1,25 @@
+stdin 0
+stdout 1
+stderr 2
+
+echo "Hola" > stdout.txt
+echo "Reemplazar todo el contenido" > stdout.txt
+echo "Agregar contenido" >> stdout.txt
+
+ls stdout.txt 2> stderr.txt # Crea el archivo pero no agrega contenido
+ls stdout.xtt 2> stderr.txt # Crea el archivo si no existe y agrega el error
+
+ls stdout.txt > lsoutut.txt 2> lserror.txt
+ls stdout.tt > lsoutut.txt 2> lserror.txt # borrar el contenido de lsoutut dado que la salida es nula
+
+nano main.py
+nombre = input('\nIntroduce tu nombre: ')
+edad = input('\nIntroduce tu edad: ')
+print(f'\nTu nombre es {nombre}')
+print(f'\nTu edad es {edad}')
+
+nano stdin.txt
+Batman
+38
+
+python3 main.py < stdin.txt

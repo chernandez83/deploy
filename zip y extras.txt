@@ -1,0 +1,24 @@
+zip frankenstein.zip frankenstein.txt
+zip -r pruebas.zip pruebas # comprimir directorio pruebas
+zip -u frankenstein.zip main.py # agregar el archivo al zip
+zipinfo pruebas.zip # listar contenido del zip
+
+unzip frankenstein.zip # descompactar en la carpeta actual
+unzip frankenstein.zip -d frankdir # descompactar al directorio frankdir
+
+bc # calculadora
+a = 10
+b = 20
+c = a + b
+c
+quit
+
+date
+date -d "+7 days"
+date -d "-20 days"
+
+sleep 5s # pausa de 5 segundos
+sleep 5m # pausa de 5 minutos
+sleep 5h # pausa de 5 horas
+sleep 5d # pausa de 5 días
+

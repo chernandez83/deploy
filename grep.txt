@@ -1,0 +1,19 @@
+Globally Search For Regular Expression and Print out
+
+grep and frankenstein.txt # busca and en todo el archivo
+grep -w and frankenstein.txt # busca la pabra "and" en todo el archivo
+grep -i MY frankenstein.txt # busqueda insensible a mayúsculas o minúsculas
+grep -in MY frankenstein.txt # busqueda insensible a mayúsculas o minúsculas y muestra el número de línea
+grep -iv MY frankenstein.txt # busqueda donde no se encuentra my insensible a mayúsculas o minúsculas
+grep -c My frankenstein.txt # cuenta las veces que My aparece
+grep -wim 10 MY frankenstein.txt # primeras 10 líneas donde aparece my
+grep "he is" frankenstein.txt # buscar frase
+grep -n "he is m" frankenstein.txt # buscar frase y número de línea
+
+# lineas antes, después y antes y después
+grep -ni "he saw his" frankenstein.txt
+grep -niB 5 "he saw his" frankenstein.txt # 5 líneas antes
+grep -niA 5 "he saw his" frankenstein.txt # 5 líneas después
+grep -niC 5 "he saw his" frankenstein.txt # 5 líneas antes u después
+
+grep -wine "he said" -wine "he saw" frankenstein.txt # e para múltiples patrones
