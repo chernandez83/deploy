@@ -1,0 +1,3 @@
+#!/bin/bash
+# ssh usuario@ip
+# ssh usuario@ip -p puerto #22 por default

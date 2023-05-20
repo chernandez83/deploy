@@ -1,0 +1,100 @@
+#!/bin/bash
+# La primera línea indica el interprete
+echo "Script ejecutandose"
+# ls -l
+# wc main.sh
+# variable=valor # sin espacio
+nombre=Batman
+trabajo=Superheroe
+echo "Nombre:" $nombre", Profesión:" $trabajo
+
+echo "Ingresar nombre:"
+read nombre
+read -p "Ingresar edad: " edad # captura en la misma línea
+read -sp "Contraseña: " password
+
+echo $nombre "tiene" $edad "años."
+echo $password
+
+#####################################################
+nano main.sh
+chmod 700 main.sh # Permisos más comunes 755 700
+./main.sh
+bash main.sh
+
+
+#####################################################
+#!/bin/bash
+stdout=$(wc main.sh) # Almacena la salida del comando
+echo "La salida de wc es:" $stdout
+
+
+##################################################### if
+#!/bin/bash
+# conciciones con () (()) [] [[]]
+# Strings == !=
+# Enteros > < >= <= == !=
+# Enteros -gt -lt -ge -le -eq -ne
+# if condición && condición || condicion
+# then
+# 	comandos
+# else
+#	comandos
+# fi
+read -p "Ingresar usuario: " username
+read -p "Ingresar edad: " edad
+if [[ $username == "Batman" ]]
+then
+	echo "Hola Batman!"
+else
+	echo "Hola mortal," $username
+fi
+
+if [[ $edad -ge 18 ]]
+then
+	echo "Tramita tu INE."
+else
+	echo "No puedes tramitar nada."
+fi
+
+if [[ $edad -ge 18 ]]; then
+	echo "Tramita tu INE."
+else
+	echo "No puedes tramitar nada."
+fi
+
+
+##################################################### for
+# for variable in colección
+# do
+#	comandos
+# done
+for numero in 1 2 3 4 5
+do
+	if [[ $(( numero % 2 )) -eq 0 ]]; then	
+		echo $numero "es número par"
+	fi
+done
+
+
+##################################################### while
+# while condición
+# do
+#	comandos
+# done
+while [[ $contador -le 10 ]]
+do
+	echo $contador
+	let "contador=contador+1"
+done
+
+
+##################################################### args
+echo "Argumentos recibidos:"
+echo $0 # archivo ejecutandose
+echo $1
+echo $2
+echo $@ # todos los arcs en un colección (sin el ejecutable)
+for arg in $@; do
+	echo $arg
+done
