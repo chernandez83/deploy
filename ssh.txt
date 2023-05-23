@@ -1,3 +1,57 @@
 #!/bin/bash
 # ssh usuario@ip
 # ssh usuario@ip -p puerto #22 por default
+ssh root@10.0.0.1 -p 22
+whoami
+ip -r
+exit
+
+# crear usuario
+adduser usuario
+
+# agregar al grupo de administradores
+usermod -aG sudo usuario
+
+# loggearse como usuario
+su usuario
+
+# llaves ssh
+# en el equipo local
+cd ~
+ls -a # para verificar si existen llaves previas
+cd .ssh
+ls -a # no debe haber llaves
+ssh-keygen -t rsa -b 4096
+ls # id_rsa id_rsa.pub # llave privada y pública
+
+# copiar al servidor
+ssh-copy-id usuario@10.0.0.1
+ssh root@10.0.0.1 # ya no pide contraseña, se loggea con la llave ssh
+
+# configurar el servidor para que solo acepte ssh
+sudo nano /etc/ssh/sshd_config
+# cambiar yes por no
+PasswordAuthentication No
+sudo service ssh restart
+
+# autentificación por alias
+cd ~
+cd .ssh
+sudo nano config
+# contenido de config
+# agregar una línea en blanco antes de definir otro alias
+Host alias
+Hostname 10.0.0.1
+User usuario
+PubkeyAuthentication yes
+IdentityFile ~/.ssh/id_rsa # obtener directorio con pwd
+
+ssh alias
+
+# cargar archivos
+scp archivo.txt usuario@10.0.0.1:/ruta/directorio/
+scp archivo2.txt alias:/ruta/directorio/
+
+# descargar archivos
+scp usuario@10.0.0.1:/ruta/directorio/archivo.txt /ruta/local/
+scp alias:/ruta/directorio/archivo.txt /ruta/local/ # . para ruta actual
