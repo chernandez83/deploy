@@ -1,0 +1,44 @@
+#!/bin/bash
+sudo apt-get update
+sudo apt-get upgrade
+sudo apt-get install tmux
+
+#version
+tmux -V
+
+tmux
+# ctrl + b t muestra el tiempo
+# presionar cualquier tecla para salir
+exit # regresar a terminal y finalizar sesion de tmux
+
+# Paneles
+# ctrl + b " crea dos páneles apilados en vertical
+# ctrl + b % crea dos páneles apilados en horizontal
+# ctrl + b q muestra índice de cada páneles
+# ctrl + b tecla de flecha para moverse entre paneles
+# ctrl + b o siguiente panel
+# ctrl + b presionado + tecla de flecha cambia el tamaño de los paneles
+# ctrl + b : abre el prompt inferior
+resize-pane -U 10 # en el panel U = Up, D = Down
+resize-pane -L 10 # en el panel L = Left, R = Right
+
+#Ventanas
+# ctrl + b c crea ventana, en la parte inferior muestra las ventanas abiertas *denota la ventana activa
+# ctrl + b 0 mueve a la ventana 0
+# ctrl + b 1 mueve a la ventana 1
+# ctrl + b n siguiente ventana
+# ctrl + b p ventana previa
+# ctrl + b f buscar ventana, enter para seleccionar la ventana, tambien muestra los paneles
+# ctrl + b , cambiar nombre de la ventana
+
+# Sesiones
+tmux ls # listar sesiones (attached) indica la sesión activa
+# ctrl + b $ renombrar sesión
+# ctrl + b d regresar a la terminal sin finalizar la sesión
+tmux # crea una nueva sesión
+# ctrl + b ) cambiar a la siguiente sesión
+# ctrl + b ( cambiar a la sesión previa
+# ctrl + b s listar sesiones
+tmux kill-session -t sesion # borrar sesión por nombre
+tmux new -s nombre # crear sesion con nombre
+tmux attach-session -t nombre # ingresar a la sesion con nombre

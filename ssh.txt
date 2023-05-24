@@ -34,7 +34,7 @@ sudo nano /etc/ssh/sshd_config
 PasswordAuthentication No
 sudo service ssh restart
 
-# autentificación por alias
+# autentificación por alias desde el cliente
 cd ~
 cd .ssh
 sudo nano config
@@ -55,3 +55,18 @@ scp archivo2.txt alias:/ruta/directorio/
 # descargar archivos
 scp usuario@10.0.0.1:/ruta/directorio/archivo.txt /ruta/local/
 scp alias:/ruta/directorio/archivo.txt /ruta/local/ # . para ruta actual
+
+# configuraciones de seguridad
+man sshd_config
+tmux
+# ctrl + b " crear panel
+# ctrl + b flecha para mover entre paneles
+sudo nano /etc/ssh/sshd_config
+# Cambiar en contenido de /etc/ssh/sshd_config
+PermitRootLogin no
+ClientAliveInterval 300 # en segundos
+AllowUsers usuario1 usuario2 # agregar al final del archivo, usurios con permiso de conexión ssh
+# reinicar el servicio ssh para aplicar los cambios
+sudo service ssh restart
+# ctrl + b flecha para mover entre paneles y probar la conexión antes de salir del servidor
+ssh alias
