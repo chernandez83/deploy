@@ -1,0 +1,71 @@
+#!/bin/bash
+
+# systemd
+# units: service, target, socket, mount
+
+# systemclt interfaz con systemd
+
+systemctl list-units
+systemctl enable
+systemctl disable
+systemctl start unidad
+systemctl stop unidad
+systemctl restart unidad
+systemctl status unidad
+
+nano main.py
+import time
+from datetime import datetime
+
+if __name__ == '__main__':
+    while True:
+        now = datetime.utcnow()
+        current_now = now.strftime('%Y-%m-%d %H:%M:S%')
+        
+        with open('/home/vagrant/pruebas/datesservice.txt', 'a') as file:
+            file.write(current_now + '\n')
+        
+        time.sleep(10)
+
+sudo nano /etc/systemd/system/modificafechas.service
+[Unit]
+Description=Registra la fecha cada 10 segundos
+
+[Service]
+WorkingDirectory=/home/vagrant/pruebas/
+ExecStart=python3 main.py
+
+[Install]
+WantedBy=default.target
+
+sudo systemctl enable modificafechas
+sudo systemctl start modificafechas
+sudo systemctl status modificafechas
+sudo systemctl stop modificafechas
+sudo systemctl disable modificafechas
+sudo systemctl daemon-reload
+
+# journald logs de los servicios en archivos binarios
+# /run/log/format
+
+# journalctl interfaz con journald
+nano main.py
+import logging # DEBUG INFO WARNING ERROR CRITICAL
+import time
+from datetime import datetime
+
+logging.basicConfig(level=logging.DEBUG,
+                    format='%(asctime)s - %(threadName)s - %(processName)s - %(levelname)s - %(message)s',
+                    filename='datesservice.log',
+                    filemode='a')
+
+if __name__ == '__main__':
+    logging.debug('Inicia el servicio')
+    while True:
+        now = datetime.utcnow()
+        current_now = now.strftime('%Y-%m-%d %H:%M:%S')
+        with open('/home/vagrant/pruebas/datesservice.txt', 'a') as file:
+            file.write(current_now + '\n')
+        logging.info(f'Se escribió {current_now}')
+        time.sleep(10)
+
