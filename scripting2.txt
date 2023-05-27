@@ -1,0 +1,71 @@
+#!/bin/bash
+sudo apt-get install python3-dev
+sudo apt-get install pip
+sudo apt-get install python3-venv
+sudo apt-get install build-essential libsystemd-dev
+python3 -m venv env
+
+source env/bin/activate
+pip install requests
+pip install cysystemd
+
+nano main.py
+#################################################################
+# Get coin price in usd
+import requests
+import time
+import logging
+
+from cysystemd import journal
+
+logging.basicConfig()
+logger = logging.getLogger()
+logger.setLevel(logging.INFO)
+
+journald_handler = journal.JournaldLogHandler()
+journald_handler.setFormatter(
+    logging.Formatter('%(levelname)s - %(asctime)s - El precio de la cripto es: %(message)s')
+)
+logger.addHandler(journald_handler)
+
+def get_current_price(id='bitcoin'):
+    url = f'https://api.coingecko.com/api/v3/simple/price?ids={id}&vs_currencies=usd'
+    response = requests.get(url)
+    if response.status_code == 200:
+        payload = response.json()
+        return payload[id]['usd']
+
+if __name__ == '__main__':
+    while True:
+        price = get_current_price('bitcoin')
+        message = str(price) + '\n'
+        logger.info(message)
+        with open('/home/vagrant/prices.txt', 'a') as file:
+            file.write(message)
+        time.sleep(10)
+#################################################################
+
+sudo nano /etc/systemd/system/getprice.service
+#################################################################
+[Unit]
+Description=Obtener el precio de bitcoin cada 10 segundos
+After=network.target
+
+[Service]
+WorkingDirectory=/home/vagrant/
+ExecStart=/home/vagrant/env/bin/python3 main.py
+
+[Install]
+WantedBy=user.multi.target
+#################################################################
+
+sudo systemctl enable getprice
+sudo systemctl start getprice
+sudo systemctl status getprice
+sudo systemctl restart getprice
+
+cat prices.txt
+sudo journalctl -u getprice
+
+sudo systemctl stop getprice
+sudo systemctl disable getprice
