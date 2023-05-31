@@ -1,0 +1,48 @@
+#!/bin/bash
+pip freeze > requirements.txt
+mysql -u root -p
+uvicorn main:app --reload
+
+vagrant ssh
+sudo apt-get update
+sudo apt-get upgrade
+sudo apt-get install mysql-server
+sudo mysql
+
+CREATE USER 'admin'@'localhost' IDENTIFIED BY '123';
+GRANT ALL PRIVILEGES ON *.* TO 'admin'@'localhost' WITH GRANT OPTION;
+CREATE DATABASE fastapi_project;
+SHOW DATABASES;
+exit
+
+mkdir project
+git clone https://github.com/chernandez83/apiFastAPI.git
+cd apiFastAPI
+sudo apt-get install python3-dev
+sudo apt-get install pip
+sudo apt-get install python3-venv
+sudo apt-get install libmysqlclient-dev
+python3 -m venv env
+source env/bin/activate
+pip install wheel
+pip install -r requirements.txt
+pip install gunicorn
+sudo nano .env # agregar variables
+sudo nano project/database.py # actualizar usuario y contraseña
+uvicorn main:app --reload # no es accesible desde fuera todavía
+# 0.0.0.0 le indica que use la ip del servidor
+uvicorn --host 0.0.0.0 main:app # ahora sí funciona desde fuera
+
+sudo nano /etc/systemd/system/apiFastAPI.service
+[Unit]
+Description=Servicio para la apiFastAPI
+After=network.target # al establecer conexión a internet
+
+[Service]
+User=vagrant # whoami
+Group=www-data
+WorkingDirectory=/home/vagrant/project/apiFastAPI
+Environment="PAHT=/home/vagrant/project/apiFastAPI/env/bin"
+ExecStart=
+
+[Install]
